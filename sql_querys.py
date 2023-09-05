@@ -33,7 +33,7 @@ HAVING COUNT(1) < 50 ORDER BY count DESC LIMIT 3;
 
 # INFO
 # Вывести число перелетов внутри одной таймзоны
-# Нужно вывести 1 значение в колонке count
+# Нужно вывести 1 значение в колонкеcount
 TASK_3_QUERY = """
 SELECT COUNT(1) as count FROM flights as fl
 JOIN airposts as apd ON fl.departure_airport = apd.airport_code
