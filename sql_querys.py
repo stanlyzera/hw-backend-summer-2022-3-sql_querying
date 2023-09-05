@@ -2,6 +2,9 @@
 # Вывести топ 5 самых коротких по длительности перелетов.  Duration - разница между scheduled_arrival и scheduled_departure.
 # В ответе должно быть 2 колонки [flight_no, duration]
 TASK_1_QUERY = """
+SELECT flight_no, (scheduled_arrival-scheduled-departure) as duration
+FROM flights
+ORDER BY duration LIMIT 5;
 """
 #  flight_no | duration
 # -----------+----------
@@ -17,6 +20,10 @@ TASK_1_QUERY = """
 # количество упоминаний которых меньше 50
 # В ответе должно быть 2 колонки [flight_no, count]
 TASK_2_QUERY = """
+SELECT flight_no, COUNT(1) as count
+FROM flights
+GROUP BY flight_no
+HAVING COUNT(1) < 50 ORDER BY count DESC LIMIT 3;
 """
 #  flight_no | count
 # -----------+-------
@@ -28,6 +35,10 @@ TASK_2_QUERY = """
 # Вывести число перелетов внутри одной таймзоны
 # Нужно вывести 1 значение в колонке count
 TASK_3_QUERY = """
+SELECT COUNT(1) as count FROM flights as fl
+JOIN airposts as apd ON fl.departure_airport = apd.airport_code
+JOIN airports as apa ON fl.arrival_airport = apa.airport_code
+WHERE apd.timezone = apa.timezone;
 """
 #  count
 # --------
