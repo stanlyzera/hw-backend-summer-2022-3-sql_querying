@@ -36,7 +36,7 @@ HAVING COUNT(1) < 50 ORDER BY count DESC LIMIT 3;
 # Нужно вывести 1 значение в колонкеcount
 TASK_3_QUERY = """
 SELECT COUNT(1) as count FROM flights as fl
-JOIN airposts as apd ON fl.departure_airport = apd.airport_code
+JOIN airports as apd ON fl.departure_airport = apd.airport_code
 JOIN airports as apa ON fl.arrival_airport = apa.airport_code
 WHERE apd.timezone = apa.timezone;
 """
