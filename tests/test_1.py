@@ -25,6 +25,7 @@ class DatabaseConfig:
 @pytest.fixture
 def config() -> DatabaseConfig:
     config_path = os.environ.get("CONFIGPATH")
+    config_path = os.path.join(os.path.abspath(os.path.dirname(__file__)), "config.yml")
     with open(config_path, "r") as f:
         raw_config = yaml.safe_load(f)
     return DatabaseConfig(**raw_config["database"])
@@ -38,7 +39,7 @@ def loop():
 @pytest.fixture(autouse=True)
 async def db(loop, config: DatabaseConfig):
     engine = create_async_engine(
-        URL(
+        URL.create(
             drivername="postgresql+asyncpg",
             host=config.host,
             database=config.database,
